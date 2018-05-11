@@ -1,0 +1,47 @@
+LookAt 0 10 100  # eye
+       0 -1 0  # look at point
+       0 1 0  # up vector
+Camera "perspective" "float fov" 45
+
+Sampler "halton" "integer pixelsamples" 128
+Integrator "path"
+Film "image" "string filename" "proj_cam3.exr"
+     "integer xresolution" [605] "integer yresolution" [605]
+
+WorldBegin
+
+
+
+AttributeBegin
+  # First image
+  CoordSysTransform "camera"
+  Translate 10 10 10
+   LightSource "projection" 
+	"float fov" [ 45 ]
+        "string mapname" "projector.jpg"
+   "rgb I" [ 5000 5000 5000 ] 
+AttributeEnd
+
+AttributeBegin
+  Material "matte" "color Kd" [.5 .5 .8]
+  Translate 0 0 -140
+Shape "trianglemesh" "point P" [ -1000 -1000 0 1000 -1000 0 1000 1000 0 -1000 1000 0 ]
+     "float uv" [ 0 0 5 0 5 5 0 5 ]
+	"integer indices" [ 0 1 2 2 3 0]
+Shape "trianglemesh" "point P" [ -400 -1000 -1000   -400 1000 -1000   -400 1000 1000 -400 -1000 1000 ]
+      "float uv" [ 0 0 5 0 5 5 0 5 ]
+        "integer indices" [ 0 1 2 2 3 0]
+AttributeEnd
+
+
+AttributeBegin
+  Material "matte"
+  Translate 0 0 0
+  Shape "sphere" "float radius" 20
+  
+AttributeEnd
+
+
+WorldEnd
+
+ 
